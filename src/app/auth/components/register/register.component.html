@@ -1,0 +1,68 @@
+<section
+  class="h-full flex justify-content-center align-items-center flex-column"
+>
+  <h1 class="text-3xl">Sign up</h1>
+  <a
+    [routerLink]="['/login']"
+    class="no-underline text-green-500 hover:underline hover:text-green-600 active:text-gray-700 transition-all transition-ease-in-out transition-duration-100 mb-3"
+    >Have an account?</a
+  >
+  <ng-container *ngIf="status$ | async as status">
+    <form
+      [formGroup]="form"
+      class="flex flex-column gap-2 max-w-30rem w-full"
+      (ngSubmit)="onSubmit()"
+    >
+      <fieldset class="p-fluid">
+        <input
+          pInputText
+          type="text"
+          class="p-input-filled"
+          placeholder="Username"
+          formControlName="username"
+          autocomplete="username"
+        />
+        <span *ngIf="_username?.invalid" class="p-error fadein"
+          >Required field</span
+        >
+      </fieldset>
+      <fieldset class="p-fluid">
+        <input
+          pInputText
+          type="email"
+          class="p-input-filled"
+          placeholder="Email"
+          formControlName="email"
+          autocomplete="email"
+        />
+        <span *ngIf="_email?.errors?.required" class="p-error fadein"
+          >Required field</span
+        >
+        <span *ngIf="_email?.errors?.email" class="p-error fadein"
+          >Invalid email format</span
+        >
+      </fieldset>
+      <fieldset class="p-fluid">
+        <input
+          pInputText
+          type="password"
+          class="p-input-filled"
+          placeholder="Password"
+          formControlName="password"
+          autocomplete="current-password"
+        />
+        <span *ngIf="_password?.errors?.required" class="p-error fadein"
+          >Required field</span
+        >
+      </fieldset>
+      <p-button
+        styleClass="p-button-success w-full"
+        label="Sign up"
+        class="w-full"
+        type="submit"
+        [disabled]="this.form.invalid"
+        [loading]="status === 'pending'"
+      ></p-button>
+    </form>
+  </ng-container>
+</section>
